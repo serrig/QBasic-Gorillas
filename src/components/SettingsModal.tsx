@@ -7,6 +7,7 @@ interface SettingsModalProps {
   onUpdateSettings: (newSettings: Partial<GameSettings>) => void;
   onClose: () => void;
   onReturnToTitle?: () => void;
+  onOpenLegal?: () => void;
 }
 
 const GRAVITY_PRESETS = [
@@ -21,6 +22,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   onUpdateSettings,
   onClose,
   onReturnToTitle,
+  onOpenLegal,
 }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 animate-in fade-in duration-150">
@@ -147,6 +149,25 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             className="w-full accent-yellow-400 bg-slate-800 h-1.5 cursor-pointer"
           />
         </div>
+
+        {/* Legal & Cookies link */}
+        {onOpenLegal && (
+          <div className="pt-2 border-t border-slate-800 flex items-center justify-between">
+            <span className="text-[11px] text-slate-400 font-sans">
+              Privacidad, Términos y Preferencias de Cookies
+            </span>
+            <button
+              type="button"
+              onClick={() => {
+                sound.playMenuBeep();
+                onOpenLegal();
+              }}
+              className="py-1.5 px-3 bg-slate-800 hover:bg-slate-700 text-yellow-400 font-pixel text-[10px] border border-yellow-500/30 transition-colors cursor-pointer"
+            >
+              LEGAL & COOKIES
+            </button>
+          </div>
+        )}
 
         {/* Buttons */}
         <div className="pt-3 border-t border-slate-800 flex items-center justify-between gap-3">

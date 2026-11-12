@@ -18,12 +18,16 @@ describe('TitleScreen', () => {
   it('switches game modes, difficulty, target score, toggles How To Play, and starts game', () => {
     const onStartGame = vi.fn();
     const onOpenStats = vi.fn();
+    const onOpenLegal = vi.fn();
+    const onOpenCookieSettings = vi.fn();
 
     render(
       <TitleScreen
         initialSettings={defaultSettings}
         onStartGame={onStartGame}
         onOpenStats={onOpenStats}
+        onOpenLegal={onOpenLegal}
+        onOpenCookieSettings={onOpenCookieSettings}
       />
     );
 
@@ -58,6 +62,16 @@ describe('TitleScreen', () => {
     // Open Stats
     fireEvent.click(screen.getByText('RÉCORDS'));
     expect(onOpenStats).toHaveBeenCalledTimes(1);
+
+    // Legal & Cookie links in footer
+    fireEvent.click(screen.getByText('Aviso Legal'));
+    expect(onOpenLegal).toHaveBeenCalledWith('notice');
+    fireEvent.click(screen.getByText('Privacidad'));
+    expect(onOpenLegal).toHaveBeenCalledWith('privacy');
+    fireEvent.click(screen.getByText('Términos y Salud'));
+    expect(onOpenLegal).toHaveBeenCalledWith('terms');
+    fireEvent.click(screen.getByText('Configurar Cookies'));
+    expect(onOpenCookieSettings).toHaveBeenCalledTimes(1);
 
     // Start game via button
     fireEvent.click(screen.getByText(/START GAME/i));

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { GameMode, AIDifficulty, GameSettings } from '../types/game';
 import { Play, User, Users, Compass, Volume2, VolumeX, Monitor, HelpCircle, Trophy } from 'lucide-react';
 import { sound } from '../audio/soundEffects';
+import type { LegalTab } from './LegalModal';
 
 interface TitleScreenProps {
   onStartGame: (
@@ -14,12 +15,16 @@ interface TitleScreenProps {
   ) => void;
   initialSettings: GameSettings;
   onOpenStats?: () => void;
+  onOpenLegal?: (tab?: LegalTab) => void;
+  onOpenCookieSettings?: () => void;
 }
 
 export const TitleScreen: React.FC<TitleScreenProps> = ({
   onStartGame,
   initialSettings,
   onOpenStats,
+  onOpenLegal,
+  onOpenCookieSettings,
 }) => {
   const [mode, setMode] = useState<GameMode>('1P_VS_CPU');
   const [difficulty, setDifficulty] = useState<AIDifficulty>('VETERAN');
@@ -374,9 +379,66 @@ export const TitleScreen: React.FC<TitleScreenProps> = ({
         </div>
       </div>
 
-      {/* Single Flat Control-Hint Line as required by game guidelines */}
-      <div className="relative z-10 w-full text-center text-xs text-slate-400 font-mono tracking-tight pb-2">
-        ↑/↓ Adjust Angle · ←/→ Adjust Velocity · Space / Enter Throw · Esc Pause
+      {/* Single Flat Control-Hint Line & Legal Links */}
+      <div className="relative z-10 w-full text-center space-y-1.5 pb-2">
+        <div className="text-xs text-slate-400 font-mono tracking-tight">
+          ↑/↓ Adjust Angle · ←/→ Adjust Velocity · Space / Enter Throw · Esc Pause
+        </div>
+        {(onOpenLegal || onOpenCookieSettings) && (
+          <div className="flex flex-wrap items-center justify-center gap-3 text-[11px] font-mono text-slate-500">
+            {onOpenLegal && (
+              <>
+                <button
+                  type="button"
+                  onClick={() => {
+                    sound.playMenuBeep();
+                    onOpenLegal('notice');
+                  }}
+                  className="hover:text-yellow-400 transition-colors cursor-pointer"
+                >
+                  Aviso Legal
+                </button>
+                <span aria-hidden="true">·</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    sound.playMenuBeep();
+                    onOpenLegal('privacy');
+                  }}
+                  className="hover:text-yellow-400 transition-colors cursor-pointer"
+                >
+                  Privacidad
+                </button>
+                <span aria-hidden="true">·</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    sound.playMenuBeep();
+                    onOpenLegal('terms');
+                  }}
+                  className="hover:text-yellow-400 transition-colors cursor-pointer"
+                >
+                  Términos y Salud
+                </button>
+              </>
+            )}
+            {onOpenCookieSettings && (
+              <>
+                <span aria-hidden="true">·</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    sound.playMenuBeep();
+                    onOpenCookieSettings();
+                  }}
+                  className="hover:text-yellow-400 transition-colors cursor-pointer"
+                >
+                  Configurar Cookies
+                </button>
+              </>
+            )}
+          </div>
+        )}
       </div>
 
       {/* How To Play Modal */}

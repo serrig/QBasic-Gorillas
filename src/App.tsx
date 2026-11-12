@@ -24,6 +24,13 @@ import { GameOverModal } from './components/GameOverModal';
 import { PauseModal } from './components/PauseModal';
 import { SettingsModal } from './components/SettingsModal';
 import { StatsModal } from './components/StatsModal';
+import { LegalModal, LegalTab } from './components/LegalModal';
+import { CookieConsentBanner } from './components/CookieConsentBanner';
+import {
+  CookieConsentPreferences,
+  applyFontPreference,
+  getStoredConsent,
+} from './services/consentStorage';
 import { statsDb } from './services/statsDatabase';
 import { MatchRecord } from './types/stats';
 
@@ -49,10 +56,26 @@ export default function App() {
   const [targetScore, setTargetScore] = useState<number>(3);
   const [totalShotsThisRound, setTotalShotsThisRound] = useState<number>(0);
 
-  // Settings
+  // Settings & Legal / Cookie Consent
   const [settings, setSettings] = useState<GameSettings>(DEFAULT_SETTINGS);
   const [showSettingsModal, setShowSettingsModal] = useState<boolean>(false);
   const [showStatsModal, setShowStatsModal] = useState<boolean>(false);
+  const [consent, setConsent] = useState<CookieConsentPreferences | null>(() => {
+    const stored = getStoredConsent();
+    if (stored) {
+      applyFontPreference(stored.externalFonts);
+    }
+    return stored;
+  });
+  const [isCookieConfigOpen, setIsCookieConfigOpen] = useState<boolean>(false);
+  const [legalModalState, setLegalModalState] = useState<{ isOpen: boolean; tab: LegalTab }>({
+    isOpen: false,
+    tab: 'notice',
+  });
+
+  const openLegalModal = (tab: LegalTab = 'notice') => {
+    setLegalModalState({ isOpen: true, tab });
+  };
 
   // Cumulative match statistics tracker for IndexedDB
   const matchStatsRef = useRef({
@@ -362,8 +385,8 @@ export default function App() {
       // Check if match won
       const isMatchOver = winner.score >= targetScore && gameMode !== 'SANDBOX';
 
-      if (isMatchOver) {
-        // Record completed match to IndexedDB
+      if (isMatchOver && consent?.statsStorage !== false) {
+        // Record completed match to IndexedDB (unless user opted out of local stats storage)
         const record: MatchRecord = {
           id: `match_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
           date: Date.now(),
@@ -400,7 +423,7 @@ export default function App() {
         setGameState(isMatchOver ? 'MATCH_VICTORY' : 'ROUND_OVER');
       }, 1100);
     },
-    [gorilla1, gorilla2, targetScore, gameMode, activeProjectile, wind, totalShotsThisRound, aiDifficulty, roundNumber, settings.gravity, settings.gravityName]
+    [gorilla1, gorilla2, targetScore, gameMode, activeProjectile, wind, totalShotsThisRound, aiDifficulty, roundNumber, settings.gravity, settings.gravityName, consent?.statsStorage]
   );
 
   // Handle Banana out of bounds
@@ -523,6 +546,8 @@ export default function App() {
           initialSettings={settings}
           onStartGame={handleStartGame}
           onOpenStats={() => setShowStatsModal(true)}
+          onOpenLegal={openLegalModal}
+          onOpenCookieSettings={() => setIsCookieConfigOpen(true)}
         />
       )}
 
@@ -621,6 +646,7 @@ export default function App() {
           onUpdateSettings={handleUpdateSettings}
           onClose={() => setShowSettingsModal(false)}
           onReturnToTitle={handleReturnToTitle}
+          onOpenLegal={() => openLegalModal('cookies')}
         />
       )}
 
@@ -628,6 +654,24 @@ export default function App() {
       <StatsModal
         isOpen={showStatsModal}
         onClose={() => setShowStatsModal(false)}
+      />
+
+      {/* Legal Notice, Privacy Policy, Cookies & Terms Modal */}
+      <LegalModal
+        isOpen={legalModalState.isOpen}
+        initialTab={legalModalState.tab}
+        onClose={() => setLegalModalState((prev) => ({ ...prev, isOpen: false }))}
+        onOpenCookieSettings={() => setIsCookieConfigOpen(true)}
+      />
+
+      {/* Cookie Consent Banner & Granular Preferences Dialog */}
+      <CookieConsentBanner
+        consent={consent}
+        isConfigOpen={isCookieConfigOpen}
+        onConsentSaved={setConsent}
+        onOpenConfig={() => setIsCookieConfigOpen(true)}
+        onCloseConfig={() => setIsCookieConfigOpen(false)}
+        onOpenLegal={() => openLegalModal('cookies')}
       />
     </main>
   );
