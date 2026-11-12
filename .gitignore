@@ -5,6 +5,7 @@ node_modules/
 build/
 dist/
 coverage/
+release/
 
 # Environment & Secrets
 .env

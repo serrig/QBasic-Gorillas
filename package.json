@@ -3,17 +3,61 @@
   "private": true,
   "version": "1.0.0",
   "description": "Classic 1991 QBasic Gorillas (GORILLA.BAS) artillery game recreation with authentic EGA visuals, Web Audio synthesizer, and IndexedDB statistics.",
+  "author": "Nacho Serrano",
   "license": "Apache-2.0",
   "type": "module",
+  "main": "electron/main.cjs",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
     "build": "vite build",
     "preview": "vite preview",
-    "clean": "rm -rf dist coverage",
+    "clean": "rm -rf dist coverage release",
     "lint": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "electron:dev": "node scripts/electron-dev.mjs",
+    "electron:build": "npm run build && electron-builder",
+    "electron:build:mac": "npm run build && electron-builder --mac",
+    "electron:build:win": "npm run build && electron-builder --win",
+    "electron:build:linux": "npm run build && electron-builder --linux"
+  },
+  "build": {
+    "appId": "com.serrig.qbasicgorillas",
+    "productName": "QBasic Gorillas",
+    "copyright": "Copyright © 2026 Nacho Serrano (Apache-2.0)",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json",
+      "LICENSE"
+    ],
+    "mac": {
+      "category": "public.app-category.arcade-games",
+      "icon": "electron/icon.png",
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    },
+    "win": {
+      "icon": "electron/icon.png",
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "linux": {
+      "category": "Game",
+      "icon": "electron/icon.png",
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    }
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
@@ -26,7 +70,7 @@
     "vite": "^8.3.0"
   },
   "devDependencies": {
-    "@testing-library/dom": "^10.4.2",
+    "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
     "@testing-library/user-event": "^14.6.9",
@@ -35,6 +79,8 @@
     "@types/react-dom": "^19.3.0",
     "@vitest/coverage-v8": "^5.1.0",
     "autoprefixer": "^10.4.21",
+    "electron": "^41.0.2",
+    "electron-builder": "^26.8.1",
     "esbuild": "^0.25.0",
     "fake-indexeddb": "^6.2.8",
     "jsdom": "^31.0.0",
