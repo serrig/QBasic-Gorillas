@@ -42,3 +42,15 @@
   pointer-events: none;
   z-index: 41;
 }
+
+/* Native <dialog> modal scroll-chaining containment & backdrop */
+dialog:modal {
+  overscroll-behavior: contain;
+}
+
+dialog::backdrop {
+  overflow: hidden;
+  overscroll-behavior: contain;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(2px);
+}
