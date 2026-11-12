@@ -74,13 +74,29 @@ npm run build
 
 ---
 
-## 🔒 Security & Privacy
+## 🔒 Security, Privacy & Legal Compliance
 
-- **100% Client-Side**: Runs entirely in the browser with zero external API keys, tracking scripts, or backend servers required.
+- **100% Client-Side (Zero Telemetry)**: Runs entirely in the browser with zero external API keys, tracking scripts, ad cookies, or backend servers required.
+- **GDPR / ePrivacy Cookie & Storage Consent**:
+  - First-visit consent banner and granular preferences dialog (`Essential Storage`, optional `IndexedDB Local Statistics`, and optional `Google Fonts` external typography).
+  - Disabling external fonts falls back cleanly to system monospace fonts with zero third-party network requests.
 - **Hardened Data Import**: Backup JSON imports enforce a 2 MB size cap, strip prototype-pollution keys (`__proto__`, `constructor`, `prototype`), and sanitize all numeric and string fields before writing to IndexedDB.
+- **In-Game Legal Center**: Accessible from the Title Screen and Settings modal with full **Legal Notice**, **Privacy Policy (GDPR/CCPA)**, **Cookies Policy (LSSI-CE)**, and **Terms & Photosensitivity Warning** (explaining how to toggle `CRT OFF`).
 
 ---
 
-## 📄 License
+## 🌿 Git Workflow
 
-Licensed under the **Apache-2.0 License**.
+This repository follows a standard **Git Flow** branching model:
+
+- **`master`**: Production-ready stable releases.
+- **`develop`**: Integration branch for upcoming features and fixes.
+- **`feature/*`**: Short-lived feature branches created from `develop` (e.g. `feature/legal-and-readme-docs`), merged back into `develop`, and promoted to `master` via Pull Request.
+
+---
+
+## 📄 License & Trademark Disclaimer
+
+Licensed under the **[Apache License 2.0](./LICENSE)**.
+
+> **Unofficial Tribute Disclaimer**: *QBasic Gorillas* is an independent, non-commercial, open-source recreation inspired by the classic 1991 `GORILLA.BAS` included with MS-DOS / QBasic. Microsoft®, MS-DOS®, and QBasic® are registered trademarks of Microsoft Corporation. This project is not affiliated with, endorsed by, or sponsored by Microsoft Corporation.
