@@ -153,10 +153,11 @@ describe('Modal Components', () => {
   });
 
   describe('SettingsModal', () => {
-    it('allows changing gravity, trajectory preview, CRT scanlines, volume, and closing', () => {
+    it('allows changing gravity, trajectory preview, CRT scanlines, volume, legal modal, and closing', () => {
       const onUpdateSettings = vi.fn();
       const onClose = vi.fn();
       const onReturnToTitle = vi.fn();
+      const onOpenLegal = vi.fn();
 
       const { container } = render(
         <SettingsModal
@@ -164,6 +165,7 @@ describe('Modal Components', () => {
           onUpdateSettings={onUpdateSettings}
           onClose={onClose}
           onReturnToTitle={onReturnToTitle}
+          onOpenLegal={onOpenLegal}
         />
       );
 
@@ -193,6 +195,9 @@ describe('Modal Components', () => {
 
       fireEvent.click(screen.getByText(/QUIT TO TITLE/i));
       expect(onReturnToTitle).toHaveBeenCalledTimes(1);
+
+      fireEvent.click(screen.getByText(/LEGAL & COOKIES/i));
+      expect(onOpenLegal).toHaveBeenCalledTimes(1);
 
       fireEvent.click(screen.getByText(/RESUME GAME/i));
       expect(onClose).toHaveBeenCalledTimes(2);
