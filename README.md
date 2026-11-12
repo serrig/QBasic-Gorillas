@@ -89,9 +89,9 @@ npm run build
 
 This repository follows a standard **Git Flow** branching model:
 
-- **`master`**: Production-ready stable releases.
+- **`main`**: Production-ready stable releases.
 - **`develop`**: Integration branch for upcoming features and fixes.
-- **`feature/*`**: Short-lived feature branches created from `develop` (e.g. `feature/legal-and-readme-docs`), merged back into `develop`, and promoted to `master` via Pull Request.
+- **`feature/*`**: Short-lived feature branches created from `develop` (e.g. `feature/legal-and-readme-docs`), merged back into `develop`, and promoted to `main` via Pull Request.
 
 ---
 
