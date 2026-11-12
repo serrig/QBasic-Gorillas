@@ -72,6 +72,20 @@ npm run lint
 npm run build
 ```
 
+### Desktop App & Installers (Electron)
+
+QBasic Gorillas can be run and packaged as a native desktop application (just like VS Code, using **Electron** and **electron-builder**):
+
+```bash
+# Run desktop app in development mode
+npm run electron:dev
+
+# Generate native installers in ./release
+npm run electron:build:mac    # macOS (.dmg & .zip)
+npm run electron:build:win    # Windows (.exe NSIS & portable)
+npm run electron:build:linux  # Linux (.AppImage & .deb)
+```
+
 ---
 
 ## 🔒 Security, Privacy & Legal Compliance

@@ -77,18 +77,26 @@ describe('ControlPanel', () => {
     expect(onChangeAngle).toHaveBeenCalledWith(-25);
     fireEvent.blur(angleInput);
 
-    // Test Angle stepper buttons (-5, +5)
+    // Test Angle stepper buttons (-5, -1, +1, +5)
     fireEvent.click(screen.getByTitle('Decrease angle by 5°'));
     expect(onChangeAngle).toHaveBeenCalledWith(40);
+    fireEvent.click(screen.getByTitle('Decrease angle by 1°'));
+    expect(onChangeAngle).toHaveBeenCalledWith(44);
+    fireEvent.click(screen.getByTitle('Increase angle by 1°'));
+    expect(onChangeAngle).toHaveBeenCalledWith(46);
     fireEvent.click(screen.getByTitle('Increase angle by 5°'));
     expect(onChangeAngle).toHaveBeenCalledWith(50);
 
-    // Test Power input and stepper buttons (-10, +10)
+    // Test Power input and stepper buttons (-10, -1, +1, +10)
     const powerInput = screen.getByLabelText('Launch Velocity');
     fireEvent.change(powerInput, { target: { value: '85' } });
     expect(onChangePower).toHaveBeenCalledWith(85);
     fireEvent.click(screen.getByText('-10'));
     expect(onChangePower).toHaveBeenCalledWith(50);
+    fireEvent.click(screen.getAllByText('-1')[1]);
+    expect(onChangePower).toHaveBeenCalledWith(59);
+    fireEvent.click(screen.getAllByText('+1')[1]);
+    expect(onChangePower).toHaveBeenCalledWith(61);
     fireEvent.click(screen.getByText('+10'));
     expect(onChangePower).toHaveBeenCalledWith(70);
 
