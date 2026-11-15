@@ -99,7 +99,7 @@ describe('GorillaCanvas', () => {
     }
   };
 
-  it('renders skyline, craters, trajectory preview, wind gauge, and handles pointer drag aiming', () => {
+  it('renders skyline, craters, trajectory preview, and handles pointer drag aiming', () => {
     const onBananaHitBuilding = vi.fn();
     const onBananaHitGorilla = vi.fn();
     const onBananaOutOfBounds = vi.fn();
