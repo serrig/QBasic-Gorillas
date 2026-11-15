@@ -470,7 +470,7 @@ export const TitleScreen: React.FC<TitleScreenProps> = ({
                 </div>
                 <div className="flex gap-2">
                   <span className="text-rose-400 font-bold">3. WIND:</span>
-                  <span>Watch the wind gauge in the sky and control bar! Wind alternates dynamically.</span>
+                  <span>Watch the wind gauge in the control bar! Wind alternates dynamically.</span>
                 </div>
                 <div className="flex gap-2">
                   <span className="text-emerald-400 font-bold">4. CRATERS:</span>
