@@ -90,7 +90,7 @@ describe('GorillaCanvas', () => {
   });
 
   const stepFrames = (count: number = 1, stepMs: number = 16) => {
-    let time = 1000;
+    let time = Math.ceil(performance.now());
     for (let i = 0; i < count; i++) {
       const currentBatch = [...rafCallbacks];
       rafCallbacks = [];
@@ -99,7 +99,7 @@ describe('GorillaCanvas', () => {
     }
   };
 
-  it('renders skyline, craters, trajectory preview, wind gauge, and handles pointer drag aiming', () => {
+  it('renders skyline, craters, trajectory preview, and handles pointer drag aiming', () => {
     const onBananaHitBuilding = vi.fn();
     const onBananaHitGorilla = vi.fn();
     const onBananaOutOfBounds = vi.fn();
