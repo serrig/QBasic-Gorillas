@@ -168,15 +168,39 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
 
             {/* Quick Wind Badge in top bar */}
             <div className="flex items-center gap-1.5 font-pixel text-[10px]">
-              <Wind className="w-3.5 h-3.5 text-cyan-400" />
+              <Wind className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
               <span className="text-slate-400">WIND:</span>
               {wind > 0 ? (
-                <span className="text-sky-400 font-bold tracking-tight">
-                  {absWind} { '►'.repeat(Math.min(4, Math.ceil(absWind / 3.5))) }
+                <span className="inline-flex items-center gap-1 text-sky-400 font-bold tracking-tight">
+                  <span className="tabular-nums">{absWind}</span>
+                  <span className="inline-flex items-center gap-0.5 text-sky-300">
+                    {Array.from({ length: Math.min(4, Math.max(1, Math.ceil(absWind / 3.5))) }).map((_, i) => (
+                      <svg
+                        key={i}
+                        viewBox="0 0 10 12"
+                        className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-current shrink-0 drop-shadow-[0_0_2px_rgba(56,189,248,0.4)]"
+                        aria-hidden="true"
+                      >
+                        <path d="M1.5 2L8.5 6L1.5 10Z" />
+                      </svg>
+                    ))}
+                  </span>
                 </span>
               ) : wind < 0 ? (
-                <span className="text-rose-400 font-bold tracking-tight">
-                  { '◄'.repeat(Math.min(4, Math.ceil(absWind / 3.5))) } {absWind}
+                <span className="inline-flex items-center gap-1 text-rose-400 font-bold tracking-tight">
+                  <span className="inline-flex items-center gap-0.5 text-rose-300">
+                    {Array.from({ length: Math.min(4, Math.max(1, Math.ceil(absWind / 3.5))) }).map((_, i) => (
+                      <svg
+                        key={i}
+                        viewBox="0 0 10 12"
+                        className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-current shrink-0 drop-shadow-[0_0_2px_rgba(244,114,182,0.4)]"
+                        aria-hidden="true"
+                      >
+                        <path d="M8.5 2L1.5 6L8.5 10Z" />
+                      </svg>
+                    ))}
+                  </span>
+                  <span className="tabular-nums">{absWind}</span>
                 </span>
               ) : (
                 <span className="text-yellow-400 font-bold">CALM (0)</span>
