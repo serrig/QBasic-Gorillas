@@ -6,6 +6,7 @@ build/
 dist/
 coverage/
 release/
+landing-v3/downloads/
 
 # Environment & Secrets
 .env
