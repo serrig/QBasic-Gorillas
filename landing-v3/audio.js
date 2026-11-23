@@ -1,4 +1,4 @@
-/* QBasic Gorillas landing — 8-bit sound effects synthesized with the Web Audio API
+/* QBasic Gorillas landing: 8-bit sound effects synthesized with the Web Audio API
    (ported from the game's src/audio/soundEffects.ts). No audio files. */
 (function () {
   'use strict';

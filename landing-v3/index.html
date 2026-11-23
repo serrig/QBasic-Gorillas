@@ -1,8 +1,10 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-type="software">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="page-type" content="software">
+  <meta name="site-kind" content="gaming">
   <meta name="color-scheme" content="light dark">
   <script>
     try { document.querySelector('meta[name="color-scheme"]').content = localStorage.getItem('qbg-color-scheme') ?? 'light dark'; } catch (e) {}
@@ -56,9 +58,10 @@
           <span class="sr-only when-light">Cambiar a tema oscuro</span>
           <span class="sr-only when-dark">Cambiar a tema claro</span>
         </button>
-        <a class="btn btn-primary btn-sm header-cta" href="#descargar">Descargar</a>
-        <button type="button" class="icon-btn menu-btn" popovertarget="mobile-menu" aria-label="Abrir menú">
-          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+        <a class="btn btn-primary btn-sm header-cta" href="#descargar">Descargar para macOS</a>
+        <button type="button" class="menu-btn" popovertarget="mobile-menu" aria-label="Abrir menú">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+          <span>Menú</span>
         </button>
       </div>
     </div>
@@ -84,21 +87,16 @@
   </div>
 
   <main id="main">
-    <!-- ============ HERO ============ -->
+    <!-- Hero -->
     <section class="hero" id="inicio" data-enter>
-      <div class="hero-grid-bg" aria-hidden="true"></div>
       <div class="wrap hero-layout">
         <div class="hero-copy">
-          <p class="chip enter" style="--d:0">
-            <span class="chip-dot" aria-hidden="true"></span>
-            Remake del <code>GORILLA.BAS</code> de 1991
-          </p>
           <h1 class="hero-title">
             <span class="line enter" style="--d:1"><span>QBasic</span></span>
             <span class="line enter" style="--d:2"><span>Gorillas</span></span>
           </h1>
           <p class="hero-lead enter" style="--d:3">
-            El duelo de artillería que venía con MS-DOS, rehecho desde cero: dos gorilas en lo alto de una ciudad, un plátano explosivo y física de verdad entre ellos.
+            El duelo de artillería de <code>GORILLA.BAS</code> (MS-DOS, 1991), rehecho desde cero: dos gorilas en lo alto de una ciudad, un plátano explosivo y física de verdad entre ellos.
           </p>
           <div class="hero-actions enter" style="--d:4">
             <a class="btn btn-primary" href="downloads/QBasic-Gorillas-1.0.0-arm64.dmg" download>
@@ -114,11 +112,9 @@
         </div>
 
         <div class="hero-stage enter" style="--d:3">
-          <div class="stage-glow" aria-hidden="true"></div>
           <figure class="app-frame game-frame">
             <div class="frame-bar">
-              <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
-              <span class="frame-title">QBasic Gorillas — CPU contra CPU</span>
+              <span class="frame-title">QBasic Gorillas · CPU contra CPU</span>
               <button type="button" class="frame-btn" id="motion-toggle" data-state="playing">
                 <svg class="i-pause" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></svg>
                 <svg class="i-play" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M7 4.5v15l12-7.5z" fill="currentColor"/></svg>
@@ -146,7 +142,7 @@
       </div>
     </section>
 
-    <!-- ============ CÓMO SE JUEGA ============ -->
+    <!-- Cómo se juega -->
     <section class="statement" id="juego" aria-labelledby="juego-title">
       <div class="statement-sticky">
         <div class="wrap">
@@ -180,7 +176,7 @@
       </div>
     </section>
 
-    <!-- ============ FÍSICA (laboratorio interactivo) ============ -->
+    <!-- Física -->
     <section class="lab" id="fisica" aria-labelledby="fisica-title">
       <div class="wrap">
         <div class="section-head">
@@ -192,9 +188,8 @@
         <div class="lab-grid">
           <figure class="app-frame lab-frame">
             <div class="frame-bar">
-              <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
               <span class="frame-title">Sandbox</span>
-              <span class="frame-wind" id="lab-wind">Viento —</span>
+              <span class="frame-wind" id="lab-wind">Viento: 0</span>
             </div>
             <div class="game-screen">
               <canvas id="lab-canvas" width="800" height="500" role="img" aria-label="Campo de pruebas: tu gorila a la izquierda, el objetivo a la derecha, edificios entre ambos. También puedes arrastrar desde tu gorila para apuntar."></canvas>
@@ -242,7 +237,7 @@
       </div>
     </section>
 
-    <!-- ============ LA CIUDAD (características) ============ -->
+    <!-- La ciudad -->
     <section class="features" id="ciudad" aria-labelledby="ciudad-title">
       <div class="wrap">
         <div class="section-head">
@@ -251,7 +246,7 @@
           <p class="lead">Lo que hacía grande al original, con los colores EGA de entonces, y unos cuantos extras que en 1991 no cabían en un disquete.</p>
         </div>
 
-        <div class="bento">
+        <div class="features-grid">
           <article class="card card-crater">
             <div class="viz viz-scene" aria-hidden="true">
               <div class="sky"></div>
@@ -349,7 +344,7 @@
       </div>
     </section>
 
-    <!-- ============ MODOS ============ -->
+    <!-- Modos -->
     <section class="modes" id="modos" aria-labelledby="modos-title">
       <div class="wrap">
         <div class="section-head">
@@ -391,7 +386,7 @@
       </div>
     </section>
 
-    <!-- ============ RÉCORDS ============ -->
+    <!-- Récords -->
     <section class="records" id="records" aria-labelledby="records-title">
       <div class="wrap records-grid">
         <div class="records-copy">
@@ -405,31 +400,26 @@
           </ul>
         </div>
 
-        <figure class="app-frame stats-frame" aria-label="Pantalla del Salón de la Fama del juego">
+        <figure class="app-frame stats-frame" aria-label="Vista de ejemplo del Salón de la Fama del juego">
           <div class="frame-bar">
-            <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span class="frame-title">Salón de la Fama</span>
+            <span class="frame-title">Salón de la Fama · Vista de ejemplo</span>
           </div>
           <div class="stats-body">
-            <p class="stats-title">HALL OF FAME</p>
+            <p class="stats-title">HALL OF FAME (EJEMPLO)</p>
             <dl class="stats-tiles">
-              <div><dt>Victorias vs Cyber Gorila</dt><dd data-count="7">7</dd></div>
-              <div><dt>Mejor racha</dt><dd data-count="5">5</dd></div>
-              <div><dt>Hoyos en uno</dt><dd data-count="3">3</dd></div>
-              <div><dt>Viento en contra vencido</dt><dd data-count="9">9</dd></div>
-              <div><dt>Sustos al sol</dt><dd data-count="42">42</dd></div>
-              <div><dt>Cráteres</dt><dd data-count="318">318</dd></div>
+              <div><dt>Victorias vs Cyber Gorila</dt><dd>7</dd></div>
+              <div><dt>Mejor racha</dt><dd>5</dd></div>
+              <div><dt>Hoyos en uno</dt><dd>3</dd></div>
+              <div><dt>Viento en contra vencido</dt><dd>9</dd></div>
+              <div><dt>Sustos al sol</dt><dd>42</dd></div>
+              <div><dt>Cráteres</dt><dd>318</dd></div>
             </dl>
-            <div class="stats-foot" aria-hidden="true">
-              <span class="fake-btn">EXPORTAR JSON</span>
-              <span class="fake-btn">IMPORTAR</span>
-            </div>
           </div>
         </figure>
       </div>
     </section>
 
-    <!-- ============ DESCARGA ============ -->
+    <!-- Descarga -->
     <section class="download" id="descargar" aria-labelledby="descargar-title">
       <div class="wrap">
         <div class="download-head">
@@ -483,7 +473,7 @@ npm run dev                  # o juega en localhost:3000</code></pre>
       <nav aria-label="Pie de página" class="footer-nav">
         <a href="https://github.com/serrig/QBasic-Gorillas" rel="noopener">GitHub</a>
         <a href="https://github.com/serrig/QBasic-Gorillas/blob/main/LICENSE" rel="noopener">Licencia Apache 2.0</a>
-        <a href="#descargar">Descargar</a>
+        <a href="#descargar">Descargar para macOS</a>
       </nav>
     </div>
     <div class="wrap footer-legal">

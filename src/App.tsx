@@ -46,17 +46,14 @@ const DEFAULT_SETTINGS: GameSettings = {
 };
 
 export default function App() {
-  // Game lifecycle state
   const [gameState, setGameState] = useState<GameState>('TITLE_MENU');
   const [gameMode, setGameMode] = useState<GameMode>('1P_VS_CPU');
   const [aiDifficulty, setAiDifficulty] = useState<AIDifficulty>('VETERAN');
 
-  // Match and Round tracking
   const [roundNumber, setRoundNumber] = useState<number>(1);
   const [targetScore, setTargetScore] = useState<number>(3);
   const [totalShotsThisRound, setTotalShotsThisRound] = useState<number>(0);
 
-  // Settings & Legal / Cookie Consent
   const [settings, setSettings] = useState<GameSettings>(DEFAULT_SETTINGS);
   const [showSettingsModal, setShowSettingsModal] = useState<boolean>(false);
   const [showStatsModal, setShowStatsModal] = useState<boolean>(false);
@@ -118,16 +115,13 @@ export default function App() {
     score: 0,
   });
 
-  // Turn and inputs
   const [currentTurn, setCurrentTurn] = useState<1 | 2>(1);
   const [angle, setAngle] = useState<number>(45);
   const [power, setPower] = useState<number>(60);
   const [wind, setWind] = useState<number>(0);
 
-  // Active Projectile
   const [activeProjectile, setActiveProjectile] = useState<Projectile | null>(null);
 
-  // Round Winner / Loser
   const [roundWinner, setRoundWinner] = useState<Gorilla | null>(null);
   const [roundLoser, setRoundLoser] = useState<Gorilla | null>(null);
 
@@ -144,14 +138,12 @@ export default function App() {
     return sign * mag;
   }, []);
 
-  // Initialize a new city skyline & round
   const initRound = useCallback(
     (
       p1Score: number = gorilla1.score,
       p2Score: number = gorilla2.score,
       startingPlayer: 1 | 2 = 1
     ) => {
-      // Clear timers
       if (cpuThinkingTimeoutRef.current) {
         clearTimeout(cpuThinkingTimeoutRef.current);
       }
@@ -245,7 +237,6 @@ export default function App() {
     setPower(60);
   };
 
-  // Launch Banana Projectile
   const handleFire = useCallback(() => {
     if (gameState !== 'PLAYING' || activeProjectile) return;
 
@@ -278,11 +269,9 @@ export default function App() {
     setTotalShotsThisRound((prev) => prev + 1);
   }, [gameState, activeProjectile, currentTurn, gorilla1, gorilla2, angle, power]);
 
-  // Next Turn logic
   const advanceTurn = useCallback(() => {
     setActiveProjectile(null);
 
-    // Next turn
     const nextPlayer: 1 | 2 = currentTurn === 1 ? 2 : 1;
     setCurrentTurn(nextPlayer);
 
@@ -298,12 +287,10 @@ export default function App() {
       return nextWind;
     });
 
-    // Reset arm states
     setGorilla1((g) => ({ ...g, armState: 'idle' }));
     setGorilla2((g) => ({ ...g, armState: 'idle' }));
   }, [currentTurn, gorilla1.x, gorilla2.x]);
 
-  // Handle Banana hit building
   const handleBananaHitBuilding = useCallback(
     (crater: Crater) => {
       setCraters((prev) => [...prev, crater]);
@@ -326,7 +313,6 @@ export default function App() {
     [advanceTurn, currentTurn, gameMode, gorilla1.x]
   );
 
-  // Handle Banana hit gorilla
   const handleBananaHitGorilla = useCallback(
     (victimNumber: 1 | 2) => {
       const currentProj = activeProjectile;
@@ -426,14 +412,12 @@ export default function App() {
     [gorilla1, gorilla2, targetScore, gameMode, activeProjectile, wind, totalShotsThisRound, aiDifficulty, roundNumber, settings.gravity, settings.gravityName, consent?.statsStorage]
   );
 
-  // Handle Banana out of bounds
   const handleBananaOutOfBounds = useCallback(() => {
     setTimeout(() => {
       advanceTurn();
     }, 400);
   }, [advanceTurn]);
 
-  // Track Sun interactions
   const handleSunGasp = useCallback(() => {
     matchStatsRef.current.sunGasps += 1;
   }, []);
@@ -442,7 +426,6 @@ export default function App() {
     matchStatsRef.current.sunHits += 1;
   }, []);
 
-  // CPU Automated Turn
   useEffect(() => {
     if (
       gameState === 'PLAYING' &&
@@ -492,7 +475,6 @@ export default function App() {
     handleFire,
   ]);
 
-  // Restart next round in current match
   const handleNextRound = () => {
     setRoundNumber((r) => r + 1);
     // Loser gets first shot in next round!
@@ -500,7 +482,6 @@ export default function App() {
     initRound(gorilla1.score, gorilla2.score, startingPlayer);
   };
 
-  // Restart match entirely (reset scores to 0)
   const handleRestartMatch = () => {
     setRoundNumber(1);
     matchStatsRef.current = {
@@ -517,7 +498,6 @@ export default function App() {
     initRound(0, 0, 1);
   };
 
-  // Return to title screen
   const handleReturnToTitle = () => {
     if (cpuThinkingTimeoutRef.current) {
       clearTimeout(cpuThinkingTimeoutRef.current);
@@ -528,19 +508,16 @@ export default function App() {
     setShowStatsModal(false);
   };
 
-  // Update Settings
   const handleUpdateSettings = (newSettings: Partial<GameSettings>) => {
     setSettings((prev) => ({ ...prev, ...newSettings }));
   };
 
-  // Toggle Pause
   const handleTogglePause = () => {
     setGameState((prev) => (prev === 'PAUSED' ? 'PLAYING' : 'PAUSED'));
   };
 
   return (
     <main className="relative w-screen h-screen overflow-hidden bg-slate-950 font-sans select-none">
-      {/* Title Screen */}
       {gameState === 'TITLE_MENU' && (
         <TitleScreen
           initialSettings={settings}
@@ -551,10 +528,8 @@ export default function App() {
         />
       )}
 
-      {/* Main Game Arena */}
       {gameState !== 'TITLE_MENU' && (
         <>
-          {/* Active Canvas Playfield */}
           <GorillaCanvas
             buildings={buildings}
             craters={craters}
@@ -580,7 +555,6 @@ export default function App() {
             }}
           />
 
-          {/* World-Matched, Low-Occlusion HUD Overlay */}
           <ControlPanel
             gorilla1={gorilla1}
             gorilla2={gorilla2}
@@ -609,7 +583,6 @@ export default function App() {
         </>
       )}
 
-      {/* Pause Modal */}
       {gameState === 'PAUSED' && (
         <PauseModal
           onResume={() => setGameState('PLAYING')}
@@ -620,7 +593,6 @@ export default function App() {
         />
       )}
 
-      {/* Round Won or Match Victory Modal */}
       {(gameState === 'ROUND_OVER' || gameState === 'MATCH_VICTORY') &&
         roundWinner &&
         roundLoser && (
@@ -639,7 +611,6 @@ export default function App() {
           />
         )}
 
-      {/* Settings Modal */}
       {showSettingsModal && (
         <SettingsModal
           settings={settings}
@@ -650,13 +621,11 @@ export default function App() {
         />
       )}
 
-      {/* Stats & Hall of Fame Modal (IndexedDB) */}
       <StatsModal
         isOpen={showStatsModal}
         onClose={() => setShowStatsModal(false)}
       />
 
-      {/* Legal Notice, Privacy Policy, Cookies & Terms Modal */}
       <LegalModal
         isOpen={legalModalState.isOpen}
         initialTab={legalModalState.tab}
@@ -664,7 +633,6 @@ export default function App() {
         onOpenCookieSettings={() => setIsCookieConfigOpen(true)}
       />
 
-      {/* Cookie Consent Banner & Granular Preferences Dialog */}
       <CookieConsentBanner
         consent={consent}
         isConfigOpen={isCookieConfigOpen}
