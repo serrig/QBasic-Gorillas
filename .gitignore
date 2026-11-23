@@ -8,6 +8,11 @@ coverage/
 release/
 landing-v3/downloads/
 
+# Local drafts, browser sessions, and audit reports
+landing/
+landing-v2/
+anti-slop/
+
 # Environment & Secrets
 .env
 .env.*
