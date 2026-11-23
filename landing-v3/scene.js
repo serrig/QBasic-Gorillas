@@ -1,4 +1,4 @@
-/* QBasic Gorillas landing — EGA Canvas Engine (Hero CPU-vs-CPU demo & Sandbox Lab) */
+/* QBasic Gorillas landing: EGA Canvas Engine (Hero CPU-vs-CPU demo & Sandbox Lab) */
 (function () {
   'use strict';
 
@@ -311,9 +311,7 @@
     return { angle: best.angle, power: best.power };
   }
 
-  /* ========================================================================
-     1. HERO AUTONOMOUS DEMO
-     ======================================================================== */
+  /* Hero autonomous demo */
   function initHero() {
     const canvas = document.getElementById('hero-canvas');
     if (!canvas) return null;
@@ -546,9 +544,7 @@
     };
   }
 
-  /* ========================================================================
-     2. INTERACTIVE SANDBOX LAB
-     ======================================================================== */
+  /* Interactive sandbox lab */
   function initLab() {
     const canvas = document.getElementById('lab-canvas');
     if (!canvas) return;

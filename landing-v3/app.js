@@ -1,11 +1,11 @@
-/* QBasic Gorillas landing — interactions, theme toggle, scroll fallbacks & copy */
+/* QBasic Gorillas landing: interactions, theme toggle, scroll fallbacks & copy */
 (function () {
   'use strict';
 
   const STORAGE_KEY = 'qbg-color-scheme';
   const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- 1. Dark / Light Theme Toggle ---------- */
+  /* Dark / Light Theme Toggle */
   const metaScheme = document.querySelector('meta[name="color-scheme"]');
   const themeBtn = document.getElementById('theme-toggle');
   const systemDarkQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -72,7 +72,7 @@
     if (e.key === STORAGE_KEY) applySchemeMeta();
   });
 
-  /* ---------- 2. Statement Word Highlight ---------- */
+  /* Statement Word Highlight */
   const statementEl = document.querySelector('[data-words]');
   if (statementEl) {
     const highlights = new Set(['ángulo.', 'velocidad.', 'viento.', 'Lanza.', 'agujero.']);
@@ -83,7 +83,7 @@
       .join(' ');
   }
 
-  /* ---------- 3. Scroll Fallbacks (progress bar & sticky header) ---------- */
+  /* Scroll Fallbacks (progress bar & sticky header) */
   if (!CSS.supports('animation-timeline: scroll()')) {
     const progressEl = document.querySelector('.scroll-progress');
     const headerEl = document.querySelector('.site-header');
@@ -97,7 +97,7 @@
     onScroll();
   }
 
-  /* ---------- 4. Hero & Lab Canvases + Motion Toggle ---------- */
+  /* Hero & Lab Canvases + Motion Toggle */
   const heroCtrl = window.QBG?.initHero?.();
   window.QBG?.initLab?.();
 
@@ -120,7 +120,7 @@
     setMotionState(!isPaused);
   });
 
-  /* ---------- 5. Interactive Keycaps ---------- */
+  /* Interactive Keycaps */
   const keyMap = new Map();
   document.querySelectorAll('.key[data-key]').forEach((el) => {
     keyMap.set(el.dataset.key, el);
@@ -137,7 +137,7 @@
     if (el) el.classList.remove('is-down');
   });
 
-  /* ---------- 6. Range Sliders CSS Progress Sync ---------- */
+  /* Range Sliders CSS Progress Sync */
   document.querySelectorAll('input[type="range"]').forEach((slider) => {
     const sync = () => {
       slider.style.setProperty('--attr-min', slider.min || '0');
@@ -148,7 +148,7 @@
     slider.addEventListener('input', sync);
   });
 
-  /* ---------- 7. 8-Bit Audio Pills ---------- */
+  /* 8-Bit Audio Pills */
   const eqEl = document.querySelector('.eq');
   let eqTimer = null;
   document.querySelectorAll('.pill[data-sound]').forEach((btn) => {
@@ -166,14 +166,14 @@
     });
   });
 
-  /* ---------- 8. CRT Filter Toggle ---------- */
+  /* CRT Filter Toggle */
   const crtToggle = document.getElementById('crt-toggle');
   const crtViz = document.getElementById('crt-viz');
   crtToggle?.addEventListener('change', () => {
     crtViz?.classList.toggle('is-on', crtToggle.checked);
   });
 
-  /* ---------- 9. Copy Button (Invoker Commands + Fallback) ---------- */
+  /* Copy Button (Invoker Commands + Fallback) */
   const copyTimers = new WeakMap();
   let lastCopyMessage = '';
 
@@ -230,34 +230,11 @@
     });
   }
 
-  /* ---------- 10. Mobile Menu Auto-Close ---------- */
+  /* Mobile Menu Auto-Close */
   const mobileMenu = document.getElementById('mobile-menu');
   mobileMenu?.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
       try { mobileMenu.hidePopover(); } catch {}
     });
   });
-
-  /* ---------- 11. Hall of Fame Count-Up ---------- */
-  const counters = document.querySelectorAll('[data-count]');
-  if (counters.length && !reducedMotion() && 'IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        io.unobserve(entry.target);
-        const el = entry.target;
-        const target = Number(el.dataset.count) || 0;
-        const start = performance.now();
-        const dur = 750;
-        const tick = (now) => {
-          const t = Math.min(1, (now - start) / dur);
-          const eased = 1 - Math.pow(1 - t, 3);
-          el.textContent = String(Math.round(target * eased));
-          if (t < 1) requestAnimationFrame(tick);
-        };
-        requestAnimationFrame(tick);
-      }
-    }, { threshold: 0.4 });
-    counters.forEach((el) => io.observe(el));
-  }
 })();

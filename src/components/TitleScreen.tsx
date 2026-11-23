@@ -298,29 +298,31 @@ export const TitleScreen: React.FC<TitleScreenProps> = ({
           {/* Player Names & Match Target Score */}
           <div className="grid grid-cols-2 gap-3 pt-1">
             <div>
-              <label className="block text-[10px] font-pixel text-slate-400 mb-1">
+              <label htmlFor="player1-name" className="block text-[10px] font-pixel text-slate-400 mb-1">
                 PLAYER 1 NAME
               </label>
               <input
+                id="player1-name"
                 type="text"
                 maxLength={12}
                 value={p1Name}
                 onChange={(e) => setP1Name(e.target.value)}
-                className="w-full bg-slate-950 border border-slate-700 px-3 py-1.5 text-xs text-sky-300 font-pixel focus:border-sky-400 focus:outline-none"
+                className="w-full bg-slate-950 border border-slate-700 px-3 py-1.5 text-xs text-sky-300 font-pixel focus:border-sky-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-1 focus-visible:ring-offset-slate-950"
               />
             </div>
 
             <div>
-              <label className="block text-[10px] font-pixel text-slate-400 mb-1">
+              <label htmlFor="player2-name" className="block text-[10px] font-pixel text-slate-400 mb-1">
                 {mode === '1P_VS_CPU' ? 'CPU NAME' : 'PLAYER 2 NAME'}
               </label>
               <input
+                id="player2-name"
                 type="text"
                 maxLength={12}
                 value={p2Name}
                 disabled={mode === '1P_VS_CPU'}
                 onChange={(e) => setP2Name(e.target.value)}
-                className="w-full bg-slate-950 border border-slate-700 px-3 py-1.5 text-xs text-rose-300 font-pixel focus:border-rose-400 focus:outline-none disabled:opacity-60"
+                className="w-full bg-slate-950 border border-slate-700 px-3 py-1.5 text-xs text-rose-300 font-pixel focus:border-rose-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 focus-visible:ring-offset-1 focus-visible:ring-offset-slate-950 disabled:opacity-60"
               />
             </div>
           </div>

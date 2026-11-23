@@ -379,7 +379,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                     onChangeAngle(Math.max(-90, angle - 5));
                     sound.playMenuBeep();
                   }}
-                  className="px-1.5 py-1 text-xs bg-slate-800 text-slate-300 hover:bg-slate-700 disabled:opacity-40 cursor-pointer"
+                  className="min-h-11 min-w-11 px-2 py-1 text-xs bg-slate-800 text-slate-300 hover:bg-slate-700 disabled:opacity-40 cursor-pointer"
                   title="Decrease angle by 5°"
                 >
                   -5
@@ -390,7 +390,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                     onChangeAngle(Math.max(-90, angle - 1));
                     sound.playMenuBeep();
                   }}
-                  className="px-1.5 py-1 text-xs bg-slate-800 text-slate-300 hover:bg-slate-700 disabled:opacity-40 cursor-pointer"
+                  className="min-h-11 min-w-11 px-2 py-1 text-xs bg-slate-800 text-slate-300 hover:bg-slate-700 disabled:opacity-40 cursor-pointer"
                   title="Decrease angle by 1°"
                 >
                   -1
@@ -420,7 +420,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                       setAngleText(clamped.toString());
                     }
                   }}
-                  className="w-16 px-1 py-1 text-center bg-slate-950 border border-slate-700 text-white font-mono text-sm tabular-nums focus:border-yellow-400 focus:outline-none"
+                  className="w-16 min-h-11 px-1 py-1 text-center bg-slate-950 border border-slate-700 text-white font-mono text-sm tabular-nums focus:border-yellow-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:ring-offset-1 focus-visible:ring-offset-slate-950"
                   title="Launch Angle: -90° (downward) to +90° (upward)"
                   aria-label="Launch Angle"
                 />
@@ -430,7 +430,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                     onChangeAngle(Math.min(90, angle + 1));
                     sound.playMenuBeep();
                   }}
-                  className="px-1.5 py-1 text-xs bg-slate-800 text-slate-300 hover:bg-slate-700 disabled:opacity-40 cursor-pointer"
+                  className="min-h-11 min-w-11 px-2 py-1 text-xs bg-slate-800 text-slate-300 hover:bg-slate-700 disabled:opacity-40 cursor-pointer"
                   title="Increase angle by 1°"
                 >
                   +1
@@ -441,7 +441,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                     onChangeAngle(Math.min(90, angle + 5));
                     sound.playMenuBeep();
                   }}
-                  className="px-1.5 py-1 text-xs bg-slate-800 text-slate-300 hover:bg-slate-700 disabled:opacity-40 cursor-pointer"
+                  className="min-h-11 min-w-11 px-2 py-1 text-xs bg-slate-800 text-slate-300 hover:bg-slate-700 disabled:opacity-40 cursor-pointer"
                   title="Increase angle by 5°"
                 >
                   +5
@@ -477,7 +477,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                     onChangePower(Math.max(1, power - 10));
                     sound.playMenuBeep();
                   }}
-                  className="px-1.5 py-1 text-xs bg-slate-800 text-slate-300 hover:bg-slate-700 disabled:opacity-40 cursor-pointer"
+                  className="min-h-11 min-w-11 px-2 py-1 text-xs bg-slate-800 text-slate-300 hover:bg-slate-700 disabled:opacity-40 cursor-pointer"
                 >
                   -10
                 </button>
@@ -487,7 +487,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                     onChangePower(Math.max(1, power - 1));
                     sound.playMenuBeep();
                   }}
-                  className="px-1.5 py-1 text-xs bg-slate-800 text-slate-300 hover:bg-slate-700 disabled:opacity-40 cursor-pointer"
+                  className="min-h-11 min-w-11 px-2 py-1 text-xs bg-slate-800 text-slate-300 hover:bg-slate-700 disabled:opacity-40 cursor-pointer"
                 >
                   -1
                 </button>
@@ -503,7 +503,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                       onChangePower(Math.max(1, Math.min(100, val)));
                     }
                   }}
-                  className="w-14 px-1.5 py-1 text-center bg-slate-950 border border-slate-700 text-white font-mono text-sm tabular-nums focus:border-yellow-400 focus:outline-none"
+                  className="w-14 min-h-11 px-1.5 py-1 text-center bg-slate-950 border border-slate-700 text-white font-mono text-sm tabular-nums focus:border-yellow-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:ring-offset-1 focus-visible:ring-offset-slate-950"
                   aria-label="Launch Velocity"
                 />
                 <button
@@ -512,7 +512,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                     onChangePower(Math.min(100, power + 1));
                     sound.playMenuBeep();
                   }}
-                  className="px-1.5 py-1 text-xs bg-slate-800 text-slate-300 hover:bg-slate-700 disabled:opacity-40 cursor-pointer"
+                  className="min-h-11 min-w-11 px-2 py-1 text-xs bg-slate-800 text-slate-300 hover:bg-slate-700 disabled:opacity-40 cursor-pointer"
                 >
                   +1
                 </button>
@@ -522,7 +522,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                     onChangePower(Math.min(100, power + 10));
                     sound.playMenuBeep();
                   }}
-                  className="px-1.5 py-1 text-xs bg-slate-800 text-slate-300 hover:bg-slate-700 disabled:opacity-40 cursor-pointer"
+                  className="min-h-11 min-w-11 px-2 py-1 text-xs bg-slate-800 text-slate-300 hover:bg-slate-700 disabled:opacity-40 cursor-pointer"
                 >
                   +10
                 </button>
