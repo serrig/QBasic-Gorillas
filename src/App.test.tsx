@@ -7,6 +7,11 @@ describe('App Integration', () => {
 
   beforeEach(() => {
     vi.useFakeTimers();
+    let seed = 42;
+    vi.spyOn(Math, 'random').mockImplementation(() => {
+      seed = (seed * 1664525 + 1013904223) % 4294967296;
+      return seed / 4294967296;
+    });
     rafCallbacks = [];
     vi.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => {
       rafCallbacks.push(cb);
@@ -21,7 +26,7 @@ describe('App Integration', () => {
   });
 
   const stepFrames = (count: number = 1, stepMs: number = 25) => {
-    let time = performance.now();
+    let time = Math.ceil(performance.now());
     for (let i = 0; i < count; i++) {
       const batch = [...rafCallbacks];
       rafCallbacks = [];
@@ -132,15 +137,23 @@ describe('App Integration', () => {
 
     // Step frames until banana flies out of bounds right
     act(() => {
-      stepFrames(60, 45);
+      stepFrames(80, 45);
       vi.advanceTimersByTime(600);
     });
 
     // Now it's CPU's turn (currentTurn === 2), advance timers so CPU thinks and fires
+    expect(screen.getByText(/WAITING/i)).toBeInTheDocument();
+
     act(() => {
       vi.advanceTimersByTime(2000);
     });
 
-    expect(screen.getAllByText(/IN FLIGHT|WAITING/i).length).toBeGreaterThan(0);
+    expect(screen.getByText('IN FLIGHT...')).toBeInTheDocument();
+
+    // Let CPU banana fly and resolve its turn
+    act(() => {
+      stepFrames(80, 45);
+      vi.advanceTimersByTime(600);
+    });
   });
 });
